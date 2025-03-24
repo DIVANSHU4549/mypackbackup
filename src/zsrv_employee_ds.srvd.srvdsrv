@@ -1,0 +1,8 @@
+@EndUserText.label: 'SERVICE DEFINATION EMPLOYEE'
+define service ZSRV_EMPLOYEE_DS {
+  expose ZCDS_EMPLOYEE_DS;
+  expose ZCDS_EMPOYMENT_DS;
+  expose ZCDS_ADDRESS_DS;
+  expose ZCDS_FAMILY_DS;
+  expose ZCDS_CONTRACT_DS;
+}

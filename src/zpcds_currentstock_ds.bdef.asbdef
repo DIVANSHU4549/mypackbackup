@@ -1,0 +1,37 @@
+projection;
+strict ( 2 );
+
+define behavior for ZPCDS_CURRENTSTOCK_DS //alias <alias_name>
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _materialmovement { create; }
+  use association _slowmovement { create; }
+  use association _stockvaluation { create; }
+}
+
+define behavior for ZPCDS_INV_MAT_MOVE_DS //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _CURRENTSTOCK;
+}
+
+define behavior for ZPCDS_INV_SLOW_MOV_DS //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _CURRENTSTOCK;
+}
+
+define behavior for ZPCDS_INV_STOCKVAL_DS //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _CURRENTSTOCK;
+}

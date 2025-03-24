@@ -1,0 +1,101 @@
+managed;
+strict ( 2 );
+
+define behavior for ZCDS_CURRENTSTOCK_DS //alias <alias_name>
+ implementation in class zbp_CDS_CURRENTSTOCK_DS unique
+persistent table zcurrentstock_ds
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+
+  association _materialmovement { create; }
+  association _slowmovement { create; }
+  association _stockvaluation { create; }
+   mapping for zcurrentstock_ds{
+   Materialid = materialid;
+   Plant = plant;
+   Storagelocation = storagelocation;
+   Stocktype = stocktype;
+   Quantity = quantity;
+   Unitofmeasure = unitofmeasure;
+   Value = value;
+   CurrencyCode = currency_code;
+
+  }
+}
+
+define behavior for ZCDS_INV_MAT_MOVE_DS //alias <alias_name>
+ implementation in class zbp_CDS_INV_MAT_MOVE_DS unique
+persistent table zinv_mat_move_ds
+lock dependent by _CURRENTSTOCK
+authorization dependent by _CURRENTSTOCK
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) Movementid, Materialid;
+  association _CURRENTSTOCK;
+  mapping for zinv_mat_move_ds{
+  Movementid = movementid;
+  Materialid = materialid;
+     Plant = plant;
+   Storagelocation = storagelocation;
+      Quantity = quantity;
+      Unitofmeasure = unitofmeasure;
+     Movementdate = movementdate;
+
+  }
+}
+
+define behavior for ZCDS_INV_SLOW_MOV_DS //alias <alias_name>
+ implementation in class zbp_CDS_INV_SLOW_MOV_DS unique
+persistent table zinv_slow_mov_ds
+lock dependent by _CURRENTSTOCK
+authorization dependent by _CURRENTSTOCK
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) Materialid;
+  association _CURRENTSTOCK;
+   mapping for zinv_slow_mov_ds{
+   Materialid = materialid;
+   Plant = plant;
+   Storagelocation = storagelocation;
+   Lastmovementdate = lastmovementdate;
+   Dayswithoutmovement = dayswithoutmovement;
+   Quantity = quantity;
+   Unitofmeasure = unitofmeasure;
+   Value = value;
+   CurrencyCode = currency_code;
+
+  }
+}
+
+define behavior for ZCDS_INV_STOCKVAL_DS //alias <alias_name>
+ implementation in class zbp_CDS_INV_STOCKVAL_DS unique
+persistent table zinv_stockval_ds
+lock dependent by _CURRENTSTOCK
+authorization dependent by _CURRENTSTOCK
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) Materialid;
+  association _CURRENTSTOCK;
+   mapping for zinv_stockval_ds{
+   Materialid = materialid;
+   Plant = plant;
+   Valuationtype = valuationtype;
+   Quantity = quantity;
+   Unitofmeasure = unitofmeasure;
+   Value = value;
+   CurrencyCode = currency_code;
+   Valuationdate = valuationdate;
+
+  }
+}

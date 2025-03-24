@@ -1,0 +1,5 @@
+@EndUserText.label: 'SERVICE EMPLOYEE MASTER'
+define service ZSRV_EMPMAST_DS {
+  expose ZCDS_EMPMASTER_DS;
+  expose zcds_empalloc;
+}

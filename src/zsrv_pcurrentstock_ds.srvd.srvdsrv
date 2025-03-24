@@ -1,0 +1,7 @@
+@EndUserText.label: 'service defination ZPCDS_CURRENTSTOCK_DS'
+define service Zsrv_pCURRENTSTOCK_DS {
+  expose ZPCDS_CURRENTSTOCK_DS;
+  expose ZPCDS_INV_MAT_MOVE_DS;
+  expose ZPCDS_INV_STOCKVAL_DS;
+  expose ZPCDS_INV_SLOW_MOV_DS;
+}

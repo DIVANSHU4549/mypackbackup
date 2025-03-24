@@ -1,0 +1,8 @@
+@EndUserText.label: 'SERVICE DEFINATION PROJECTION VIEW'
+define service ZSRV_PEMPLOYEE_DS {
+  expose ZC_PCDS_EMPLOYEE_DS;
+  expose ZC_PCDS_EMPLOYMENT_DS;
+  expose ZC_PCDS_ADDRESS_DS;
+  expose ZC_PCDS_FAMILY_DS;
+  expose ZC_PCDS_CONTRACT_DS;
+}

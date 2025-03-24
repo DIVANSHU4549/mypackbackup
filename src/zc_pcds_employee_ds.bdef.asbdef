@@ -1,0 +1,46 @@
+projection;
+strict ( 2 );
+
+define behavior for ZC_PCDS_EMPLOYEE_DS //alias <alias_name>
+{
+  use create;
+  use update;
+  use delete;
+
+  use association _EMPLOYMENT1 { create; }
+  use association _EMPLOYMENT2 { create; }
+  use association _EMPLOYMENT { create; }
+  use association _EMPLOYMENT3 { create; }
+}
+
+define behavior for ZC_PCDS_ADDRESS_DS //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _EMPLOYEE;
+}
+
+define behavior for ZC_PCDS_CONTRACT_DS //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _EMPLOYEE;
+}
+
+define behavior for ZC_PCDS_EMPLOYMENT_DS //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _EMPLOYEE;
+}
+
+define behavior for ZC_PCDS_FAMILY_DS //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _EMPLOYEE;
+}

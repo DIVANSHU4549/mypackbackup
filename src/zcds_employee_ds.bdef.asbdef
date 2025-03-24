@@ -1,0 +1,102 @@
+managed ;
+strict ( 2 );
+
+define behavior for ZCDS_EMPLOYEE_DS //alias <alias_name>
+implementation in class zbp_cds_employee_ds unique
+persistent table zhr_employee_ds
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+
+  association _EMPLOYMENT1 { create; }
+  association _EMPLOYMENT2 { create; }
+  association _EMPLOYMENT { create; }
+  association _EMPLOYMENT3 { create; }
+}
+
+define behavior for ZCDS_ADDRESS_DS //alias <alias_name>
+implementation in class zbp_cds_address_ds unique
+persistent table zhr_address_ds
+lock dependent by _EMPLOYEE
+authorization dependent by _EMPLOYEE
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) Employeeid;
+  association _EMPLOYEE;
+  mapping for zhr_address_ds{
+    EmployeeID = employeeid;
+    Country = country;
+    City = city;
+    Street = street;
+    Postalcode = postalcode;
+  }
+}
+
+define behavior for ZCDS_CONTRACT_DS //alias <alias_name>
+implementation in class zbp_cds_contract_ds unique
+persistent table zhr_contract_ds
+lock dependent by _EMPLOYEE
+authorization dependent by _EMPLOYEE
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly:update ) Employeeid;
+  association _EMPLOYEE;
+   mapping for zhr_contract_ds{
+    EmployeeID = employeeid;
+    Contracttype = contracttype;
+    Startdate = startdate;
+    Enddate = enddate;
+    Payscalegroup = payscalegroup;
+    Payscalelevel = payscalelevel;
+  }
+}
+
+define behavior for ZCDS_EMPOYMENT_DS //alias <alias_name>
+implementation in class zbp_cds_employment_ds unique
+persistent table zhr_empoyment_ds
+lock dependent by _EMPLOYEE
+authorization dependent by _EMPLOYEE
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly:update ) Employeeid;
+  association _EMPLOYEE;
+   mapping for zhr_empoyment_ds{
+    EmployeeID = employeeid;
+    Companycode = companycode;
+    Personnelarea = personnelarea;
+    Employeegroup = employeegroup;
+    Employeesubgroup = employeesubgroup;
+    Costcenter = costcenter;
+    }
+}
+
+define behavior for ZCDS_FAMILY_DS //alias <alias_name>
+implementation in class zbp_cds_family_ds unique
+persistent table zhr_family_ds
+lock dependent by _EMPLOYEE
+authorization dependent by _EMPLOYEE
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly:update ) Employeeid;
+  association _EMPLOYEE;
+  mapping for zhr_family_ds{
+    EmployeeID = employeeid;
+    Familymemberid = familymemberid;
+    Familymembername = familymembername;
+    Relationship = relationship;
+    Dateofbirth = Dateofbirth;
+    Gender = gender;
+    }
+}

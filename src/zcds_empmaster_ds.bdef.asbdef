@@ -1,0 +1,45 @@
+managed ;
+strict ( 2 );
+
+define behavior for ZCDS_EMPMASTER_DS //alias <alias_name>
+implementation in class zbp_cds_empmaster_ds unique
+persistent table zemp_master_ds
+lock master
+authorization master ( instance )
+//etag master <field_name>
+{
+  create;
+  update;
+  delete;
+//  field ( readonly ) EmpId;
+  association _empallocation { create; }
+  mapping for  zemp_master_ds{
+  EmpId = emp_id;
+  EmpName = emp_name;
+  CompanyName = company_name;
+  Designation = designation;
+  }
+}
+
+define behavior for zcds_empalloc //alias <alias_name>
+implementation in class zbp_cds_empalloc unique
+persistent table zempallocationds
+lock dependent by _EmpMaster
+authorization dependent by _EmpMaster
+//etag master <field_name>
+{
+  update;
+  delete;
+  field ( readonly ) EmpId;
+  association _EmpMaster;
+  mapping for zempallocationds{
+  EmpId = emp_id;
+  AllocationId = allocation_id;
+  ProfitCenter = profit_center;
+  AllocationPer = allocation_per;
+  Active = active;
+  Status = status;
+  FromDate = from_date;
+  ToDate = to_date;
+  }
+}
